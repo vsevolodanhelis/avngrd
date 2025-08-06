@@ -1,0 +1,43 @@
+{
+  "name": "deposit-calculator",
+  "version": "1.0.0",
+  "description": "NBU Regulation 223 compliant Ukrainian bank deposit calculator component",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server . -p 3000 -o",
+    "test": "npx http-server . -p 3001 -o test.html",
+    "build": "echo 'No build step required - vanilla HTML/CSS/JS'",
+    "validate": "npx html-validate index.html && npx stylelint styles/*.css",
+    "serve": "npx live-server --port=3000 --open=index.html"
+  },
+  "keywords": [
+    "ukrainian",
+    "banking",
+    "deposit",
+    "calculator",
+    "nbu",
+    "regulation-223",
+    "financial",
+    "ukraine"
+  ],
+  "author": "Banking Calculator",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2",
+    "html-validate": "^8.7.4",
+    "stylelint": "^15.11.0",
+    "stylelint-config-standard": "^34.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/ukrainian-deposit-calculator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/ukrainian-deposit-calculator/issues"
+  },
+  "homepage": "https://github.com/your-username/ukrainian-deposit-calculator#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
