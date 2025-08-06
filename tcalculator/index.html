@@ -1,0 +1,338 @@
+
+<!-- the forms, hope i fetched the right thing lol-->
+<div class="row vc_row-fluid"><div class="wpb_column col-md-8"><h2 style="text-align:left" class="vc_custom_heading">Депозитний калькулятор</h2><div class="section-text text-block"><p>(калькулятор відображає інформацію щодо депозитів, якщо обрані параметри калькулятора відповідають можливим умовам розміщення депозиту. Для отримання інформації про умови розміщення депозитів та розрахунку витрат або доходів щодо депозитів &nbsp;на суму понад 50 млн. грн., 1 млн. доларів США, 1 млн. євро просимо звернутися до <a href="https://avgd.ua/contacts/" target="_blank" rel="noopener noreferrer">Банку</a>)</p>
+</div><div class="vc_empty_space" style="height:2em"><span class="vc_empty_space_inner"></span></div>
+ <div class="wpb_raw_code wpb_content_element wpb_raw_html vc_custom_1688062207809">
+ <div class="wpb_wrapper">
+ <label class="cur" for="cur_UAH" style="background: rgb(253, 235, 10); color: rgb(136, 136, 136); --darkreader-inline-bgcolor: var(--darkreader-background-fdeb0a, #988e1c); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-888888, #a39c92);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color=""><input name="currency" type="radio" value="UAH" checked="" id="cur_UAH">UAH</label>
+<label class="cur" for="cur_USA"><input name="currency" type="radio" value="USA" id="cur_USA">USD</label>
+<label class="cur" for="cur_EUR"><input name="currency" type="radio" value="EUR" id="cur_EUR">EUR</label>
+ </div>
+ </div>
+<div class="vc_empty_space" style="height:2em"><span class="vc_empty_space_inner"></span></div>
+ <div class="wpb_raw_code wpb_content_element wpb_raw_html vc_custom_1738234736066">
+ <div class="wpb_wrapper">
+ <div class="row">
+ <div class="col-md-4 flex-box">
+ <div>Сума вкладу</div>
+ <div class="data data-bordered"><input type="number" id="summa-label" max="100" min="10" value=""></div>
+ </div>
+ <div class="col-md-8">
+ <input id="summa" type="range" max="100" min="10" value="55">
+ <span class="money value_left"></span><span class="money value_right" style="display:none"></span>
+ </div>
+</div>
+<div class="row row-month">
+ <div class="col-md-4 flex-box">
+ <div>Термін (дн.)</div>
+ <div class="data data-bordered"><input type="number" id="month-label" max="545" min="7" value=""></div>
+ </div>
+ <div class="col-md-8">
+ <input id="term" type="range" max="545" min="7" step="1" value="7">
+ <span class="value_left">7</span><span class="value_right">545</span>
+ </div>
+</div>
+<div class="row row-day" style="display:none">
+ 
+ 
+</div>
+<div class="row row-termin">
+ <div class="col-md-4">Фіксований термін</div>
+ <div class="col-md-3">
+ <input id="termin" type="range" min="0" max="1" step="1" value="0">
+ <span class="value_left">Ні</span><span class="value_right">Так</span>
+ </div>
+</div>
+<div style="display:none" id="showDivorce">
+</div>
+<div class="row row-everymonth">
+ <div class="col-md-4">Отримання відсотків щомісяця</div>
+ <div class="col-md-3">
+ <input id="monthly" type="range" min="0" max="1" step="1" value="0">
+ <span class="value_left">Ні</span><span class="value_right">Так</span>
+ </div>
+</div>
+ </div>
+ </div>
+<div class="vc_empty_space" style="height:2em"><span class="vc_empty_space_inner"></span></div></div><div class="wpb_column col-md-4"></div></div>
+
+
+<!-- and the result output-->
+ <div class="row vc_row-fluid"><div class="wpb_column col-md-12 no-padding"><div class="section-text text-block"><div class="wpb_column col-md-4 avangard uk" data-name="АВАНГАРД" data-months="[&quot;92&quot;,&quot;180&quot;,&quot;365&quot;,&quot;545&quot;]" data-days="[[7],[7],[7],[7]]" data-divorce="1" data-divorce-months="[&quot;92&quot;,&quot;180&quot;,&quot;365&quot;,&quot;545&quot;]" data-divorce-days="[[7],[7],[7],[7]]" data-type="flex">
+<h2 style="text-align:left" class="vc_custom_heading tarif_title">АВАНГАРД</h2>
+ <div class="small_text">
+<table>
+<tbody><tr>
+<td>Сума вкладу</td>
+<td><span class="yellow_text"><strong><label id="total"></label></strong></span></td>
+</tr>
+<tr>
+<td colspan="2">
+Річна процентна ставка та термін<br>
+<strong>Фіксовані без права поповнення</strong>
+</td>
+</tr>
+<tr>
+<td>Термін вкладу</td>
+<td><span class="yellow_text"><strong><label id="month"></label> <div id="termin"></div></strong></span></td>
+</tr>
+<tr>
+<td>ПРОЦЕНТНА СТАВКА (без урахування сплати податків, річних)</td>
+<td><span class="yellow_text"><strong><label id="percent"></label>%</strong></span></td>
+</tr>
+<tr>
+<td>ПРОЦЕНТНА СТАВКА (з урахування сплати податків, річних)</td>
+<td><span class="yellow_text"><strong><label id="percent_real"></label>%</strong></span></td>
+</tr>
+<tr>
+<td colspan="2">
+<strong><label id="vidsotky"></label></strong>
+</td>
+</tr>
+<tr>
+<td>Сума доходу<br><span class="small_small_text">(до оподаткування)</span></td>
+<td><span class="yellow_text"><strong><label id="client_total"></label></strong></span></td>
+</tr>
+<tr>
+<td>Сума податків<br><span class="small_small_text">(ПДФО+Військ.збір)</span></td>
+<td><span class="yellow_text"><strong><label id="tax_fi"></label></strong></span></td>
+</tr>
+<tr>
+<td>Сума доходу<br><span class="small_small_text">(після оподаткування)</span></td>
+<td><span class="yellow_text"><strong><label id="tax_total"></label></strong></span></td>
+</tr>
+</tbody></table>
+ </div>
+</div>
+<div class="wpb_column col-md-4 avangard uk" data-name="АВАНГАРД ПЛЮС" data-months="[&quot;92&quot;,&quot;180&quot;,&quot;365&quot;]" data-days="[[7],[7],[7]]" data-divorce="" data-type="flex">
+<h2 style="text-align:left" class="vc_custom_heading tarif_title">АВАНГАРД ПЛЮС</h2>
+ <div class="small_text">
+<table>
+<tbody><tr>
+<td>Сума вкладу</td>
+<td><span class="yellow_text"><strong><label id="total"></label></strong></span></td>
+</tr>
+<tr>
+<td colspan="2">
+Річна процентна ставка та термін<br>
+<strong>Фіксовані без права поповнення</strong>
+</td>
+</tr>
+<tr>
+<td>Термін вкладу</td>
+<td><span class="yellow_text"><strong><label id="month"></label> <div id="termin"></div></strong></span></td>
+</tr>
+<tr>
+<td>ПРОЦЕНТНА СТАВКА (без урахування сплати податків, річних)</td>
+<td><span class="yellow_text"><strong><label id="percent"></label>%</strong></span></td>
+</tr>
+<tr>
+<td>ПРОЦЕНТНА СТАВКА (з урахування сплати податків, річних)</td>
+<td><span class="yellow_text"><strong><label id="percent_real"></label>%</strong></span></td>
+</tr>
+<tr>
+<td colspan="2">
+<strong><label id="vidsotky"></label></strong>
+</td>
+</tr>
+<tr>
+<td>Сума доходу<br><span class="small_small_text">(до оподаткування)</span></td>
+<td><span class="yellow_text"><strong><label id="client_total"></label></strong></span></td>
+</tr>
+<tr>
+<td>Сума податків<br><span class="small_small_text">(ПДФО+Військ.збір)</span></td>
+<td><span class="yellow_text"><strong><label id="tax_fi"></label></strong></span></td>
+</tr>
+<tr>
+<td>Сума доходу<br><span class="small_small_text">(після оподаткування)</span></td>
+<td><span class="yellow_text"><strong><label id="tax_total"></label></strong></span></td>
+</tr>
+</tbody></table>
+ </div>
+</div>
+<div class="wpb_column col-md-4 avangard uk" data-name="СТРОКОВИЙ" data-months="[[92],[92],[92],[92],[92],[92],[92],[92],[92],[92]]" data-days="[&quot;7&quot;,&quot;14&quot;,&quot;28&quot;,&quot;50&quot;,&quot;100&quot;,&quot;150&quot;,&quot;200&quot;,&quot;250&quot;,&quot;300&quot;,&quot;365&quot;]" data-divorce="" data-type="fixed">
+<h2 style="text-align:left" class="vc_custom_heading tarif_title">СТРОКОВИЙ</h2>
+ <div class="small_text">
+<table>
+<tbody><tr>
+<td>Сума вкладу</td>
+<td><span class="yellow_text"><strong><label id="total"></label></strong></span></td>
+</tr>
+<tr>
+<td colspan="2">
+Річна процентна ставка та термін<br>
+<strong>Фіксовані без права поповнення</strong>
+</td>
+</tr>
+<tr>
+<td>Термін вкладу</td>
+<td><span class="yellow_text"><strong><label id="month"></label> <div id="termin"></div></strong></span></td>
+</tr>
+<tr>
+<td>ПРОЦЕНТНА СТАВКА (без урахування сплати податків, річних)</td>
+<td><span class="yellow_text"><strong><label id="percent"></label>%</strong></span></td>
+</tr>
+<tr>
+<td>ПРОЦЕНТНА СТАВКА (з урахування сплати податків, річних)</td>
+<td><span class="yellow_text"><strong><label id="percent_real"></label>%</strong></span></td>
+</tr>
+<tr>
+<td colspan="2">
+<strong><label id="vidsotky"></label></strong>
+</td>
+</tr>
+<tr>
+<td>Сума доходу<br><span class="small_small_text">(до оподаткування)</span></td>
+<td><span class="yellow_text"><strong><label id="client_total"></label></strong></span></td>
+</tr>
+<tr>
+<td>Сума податків<br><span class="small_small_text">(ПДФО+Військ.збір)</span></td>
+<td><span class="yellow_text"><strong><label id="tax_fi"></label></strong></span></td>
+</tr>
+<tr>
+<td>Сума доходу<br><span class="small_small_text">(після оподаткування)</span></td>
+<td><span class="yellow_text"><strong><label id="tax_total"></label></strong></span></td>
+</tr>
+</tbody></table>
+ </div>
+</div>
+<div class="wpb_column col-md-4 avangard uk" data-name="ІНВЕСТИЦІЙНИЙ" data-months="[[92],[92],[92],[92],[92],[92],[92],[92],[92],[92]]" data-days="[&quot;7&quot;,&quot;14&quot;,&quot;28&quot;,&quot;50&quot;,&quot;100&quot;,&quot;150&quot;,&quot;200&quot;,&quot;250&quot;,&quot;300&quot;,&quot;365&quot;]" data-divorce="" data-type="fixed">
+<h2 style="text-align:left" class="vc_custom_heading tarif_title">ІНВЕСТИЦІЙНИЙ</h2>
+ <div class="small_text">
+<table>
+<tbody><tr>
+<td>Сума вкладу</td>
+<td><span class="yellow_text"><strong><label id="total"></label></strong></span></td>
+</tr>
+<tr>
+<td colspan="2">
+Річна процентна ставка та термін<br>
+<strong>Фіксовані без права поповнення</strong>
+</td>
+</tr>
+<tr>
+<td>Термін вкладу</td>
+<td><span class="yellow_text"><strong><label id="month"></label> <div id="termin"></div></strong></span></td>
+</tr>
+<tr>
+<td>ПРОЦЕНТНА СТАВКА (без урахування сплати податків, річних)</td>
+<td><span class="yellow_text"><strong><label id="percent"></label>%</strong></span></td>
+</tr>
+<tr>
+<td>ПРОЦЕНТНА СТАВКА (з урахування сплати податків, річних)</td>
+<td><span class="yellow_text"><strong><label id="percent_real"></label>%</strong></span></td>
+</tr>
+<tr>
+<td colspan="2">
+<strong><label id="vidsotky"></label></strong>
+</td>
+</tr>
+<tr>
+<td>Сума доходу<br><span class="small_small_text">(до оподаткування)</span></td>
+<td><span class="yellow_text"><strong><label id="client_total"></label></strong></span></td>
+</tr>
+<tr>
+<td>Сума податків<br><span class="small_small_text">(ПДФО+Військ.збір)</span></td>
+<td><span class="yellow_text"><strong><label id="tax_fi"></label></strong></span></td>
+</tr>
+<tr>
+<td>Сума доходу<br><span class="small_small_text">(після оподаткування)</span></td>
+<td><span class="yellow_text"><strong><label id="tax_total"></label></strong></span></td>
+</tr>
+</tbody></table>
+ </div>
+</div>
+<div class="wpb_column col-md-4 avangard uk" data-name="МАЙЖЕ ДОЛАР" data-months="[[92]]" data-days="[&quot;200&quot;]" data-divorce="" data-type="fixed">
+<h2 style="text-align:left" class="vc_custom_heading tarif_title">МАЙЖЕ ДОЛАР</h2>
+ <div class="small_text">
+<table>
+<tbody><tr>
+<td>Сума вкладу</td>
+<td><span class="yellow_text"><strong><label id="total"></label></strong></span></td>
+</tr>
+<tr>
+<td colspan="2">
+Річна процентна ставка та термін<br>
+<strong>Фіксовані без права поповнення</strong>
+</td>
+</tr>
+<tr>
+<td>Термін вкладу</td>
+<td><span class="yellow_text"><strong><label id="month"></label> <div id="termin"></div></strong></span></td>
+</tr>
+<tr>
+<td>ПРОЦЕНТНА СТАВКА (без урахування сплати податків, річних)</td>
+<td><span class="yellow_text"><strong><label id="percent"></label>%</strong></span></td>
+</tr>
+<tr>
+<td>ПРОЦЕНТНА СТАВКА (з урахування сплати податків, річних)</td>
+<td><span class="yellow_text"><strong><label id="percent_real"></label>%</strong></span></td>
+</tr>
+<tr>
+<td colspan="2">
+<strong><label id="vidsotky"></label></strong>
+</td>
+</tr>
+<tr>
+<td>Сума доходу<br><span class="small_small_text">(до оподаткування)</span></td>
+<td><span class="yellow_text"><strong><label id="client_total"></label></strong></span></td>
+</tr>
+<tr>
+<td>Сума податків<br><span class="small_small_text">(ПДФО+Військ.збір)</span></td>
+<td><span class="yellow_text"><strong><label id="tax_fi"></label></strong></span></td>
+</tr>
+<tr>
+<td>Сума доходу<br><span class="small_small_text">(після оподаткування)</span></td>
+<td><span class="yellow_text"><strong><label id="tax_total"></label></strong></span></td>
+</tr>
+</tbody></table>
+ </div>
+</div>
+<div class="wpb_column col-md-4 avangard uk" data-name="IНВЕСТИЦІЙНИЙ" data-months="[&quot;365&quot;,[92],[92],[92],[92],[92],[92],[92],[92],[92]]" data-days="[&quot;7&quot;,&quot;14&quot;,&quot;28&quot;,&quot;50&quot;,&quot;100&quot;,&quot;150&quot;,&quot;200&quot;,&quot;250&quot;,&quot;300&quot;,&quot;365&quot;]" data-divorce="" data-type="fixed">
+<h2 style="text-align:left" class="vc_custom_heading tarif_title">IНВЕСТИЦІЙНИЙ</h2>
+ <div class="small_text">
+<table>
+<tbody><tr>
+<td>Сума вкладу</td>
+<td><span class="yellow_text"><strong><label id="total"></label></strong></span></td>
+</tr>
+<tr>
+<td colspan="2">
+Річна процентна ставка та термін<br>
+<strong>Фіксовані без права поповнення</strong>
+</td>
+</tr>
+<tr>
+<td>Термін вкладу</td>
+<td><span class="yellow_text"><strong><label id="month"></label> <div id="termin"></div></strong></span></td>
+</tr>
+<tr>
+<td>ПРОЦЕНТНА СТАВКА (без урахування сплати податків, річних)</td>
+<td><span class="yellow_text"><strong><label id="percent"></label>%</strong></span></td>
+</tr>
+<tr>
+<td>ПРОЦЕНТНА СТАВКА (з урахування сплати податків, річних)</td>
+<td><span class="yellow_text"><strong><label id="percent_real"></label>%</strong></span></td>
+</tr>
+<tr>
+<td colspan="2">
+<strong><label id="vidsotky"></label></strong>
+</td>
+</tr>
+<tr>
+<td>Сума доходу<br><span class="small_small_text">(до оподаткування)</span></td>
+<td><span class="yellow_text"><strong><label id="client_total"></label></strong></span></td>
+</tr>
+<tr>
+<td>Сума податків<br><span class="small_small_text">(ПДФО+Військ.збір)</span></td>
+<td><span class="yellow_text"><strong><label id="tax_fi"></label></strong></span></td>
+</tr>
+<tr>
+<td>Сума доходу<br><span class="small_small_text">(після оподаткування)</span></td>
+<td><span class="yellow_text"><strong><label id="tax_total"></label></strong></span></td>
+</tr>
+</tbody></table>
+ </div>
+</div>
+</div></div></div>
+
