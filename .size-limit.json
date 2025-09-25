@@ -1,0 +1,17 @@
+[
+  {
+    "name": "app client bundle",
+    "path": ".next/static/chunks/*.js",
+    "limit": "250 kB"
+  },
+  {
+    "name": "vendor chunk",
+    "path": ".next/static/chunks/vendors-*.js",
+    "limit": "350 kB"
+  },
+  {
+    "name": "main layout chunk",
+    "path": ".next/static/chunks/app/layout-*.js",
+    "limit": "120 kB"
+  }
+]

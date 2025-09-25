@@ -1,0 +1,133 @@
+'use client'
+
+// Example implementation for future theme context integration
+// This file shows how to integrate the theme toggle with the SettingsDropdown
+
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+
+export type Theme = 'light' | 'dark'
+
+interface ThemeContextType {
+  theme: Theme
+  setTheme: (theme: Theme) => void
+  toggleTheme: () => void
+}
+
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
+
+interface ThemeProviderProps {
+  children: ReactNode
+}
+
+export function ThemeProvider({ children }: ThemeProviderProps) {
+  const [theme, setThemeState] = useState<Theme>('light')
+
+  // Load theme from localStorage on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('avangard-theme') as Theme
+      if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
+        setThemeState(savedTheme)
+        applyTheme(savedTheme)
+      } else {
+        // Check system preference
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        const systemTheme = prefersDark ? 'dark' : 'light'
+        setThemeState(systemTheme)
+        applyTheme(systemTheme)
+      }
+    }
+  }, [])
+
+  const setTheme = (newTheme: Theme) => {
+    setThemeState(newTheme)
+    applyTheme(newTheme)
+    
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('avangard-theme', newTheme)
+    }
+  }
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light')
+  }
+
+  const applyTheme = (theme: Theme) => {
+    if (typeof window !== 'undefined') {
+      const root = document.documentElement
+      
+      if (theme === 'dark') {
+        root.classList.add('dark')
+      } else {
+        root.classList.remove('dark')
+      }
+      
+      // Update meta theme-color for mobile browsers
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      if (metaThemeColor) {
+        metaThemeColor.setAttribute('content', theme === 'dark' ? '#1f2937' : '#ffffff')
+      }
+    }
+  }
+
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  )
+}
+
+export function useTheme() {
+  const context = useContext(ThemeContext)
+  if (context === undefined) {
+    throw new Error('useTheme must be used within a ThemeProvider')
+  }
+  return context
+}
+
+// Example usage in SettingsDropdown:
+/*
+import { useTheme } from '@/contexts/ThemeContext'
+
+// In SettingsDropdown component:
+const { theme, setTheme } = useTheme()
+
+// Replace the placeholder theme logic with:
+const handleThemeChange = (newTheme: 'light' | 'dark') => {
+  setTheme(newTheme)
+}
+
+// Update the currentTheme state to use the context:
+// const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('light') // Remove this
+// Use theme from context instead: theme
+
+// In the theme buttons, replace currentTheme with theme:
+${theme === 'light' ? 'bg-yellow-50 text-yellow-700 font-medium' : '...'}
+*/
+
+// Tailwind CSS dark mode configuration would need to be added to tailwind.config.ts:
+/*
+module.exports = {
+  darkMode: 'class', // Enable class-based dark mode
+  // ... rest of config
+}
+*/
+
+// CSS variables for theme colors could be added to globals.css:
+/*
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  // ... other light theme colors
+}
+
+.dark {
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --card: #1e293b;
+  --card-foreground: #f8fafc;
+  // ... other dark theme colors
+}
+*/

@@ -1,0 +1,370 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Use Nunito Sans as Century Gothic alternative - it's very similar */
+@font-face {
+  font-family: 'Century Gothic Web';
+  src: url('data:font/woff2;base64,') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Force Nunito Sans (Century Gothic-like) throughout */
+html, body, *, 
+h1, h2, h3, h4, h5, h6,
+p, span, div, a, button, input {
+  font-family: 'Nunito Sans', 'Century Gothic', 'Futura', 'Avenir', 'Helvetica Neue', sans-serif !important;
+}
+
+@font-face {
+  font-family: 'Century Gothic';
+  src: local('Century Gothic'), local('CenturyGothic'), local('Century-Gothic'), local('GOTHIC'), local('CenturyGothic-Regular');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Century Gothic';
+  src: local('Century Gothic Bold'), local('CenturyGothic-Bold'), local('Century-Gothic-Bold'), local('GOTHICB'), local('CenturyGothic-Bold');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Century Gothic';
+  src: local('Century Gothic Light'), local('CenturyGothic-Light'), local('Century-Gothic-Light'), local('GOTHICL'), local('CenturyGothic-Light');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Century Gothic';
+  src: local('Century Gothic Italic'), local('CenturyGothic-Italic'), local('Century-Gothic-Italic'), local('GOTHICI'), local('CenturyGothic-Italic');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --primary: #fbbf24;
+  --primary-foreground: #000000;
+  --secondary: #f3f4f6;
+  --secondary-foreground: #374151;
+  --muted: #f9fafb;
+  --muted-foreground: #6b7280;
+  --accent: #f3f4f6;
+  --accent-foreground: #374151;
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --ring: #fbbf24;
+}
+
+.dark {
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --card: #1e293b;
+  --card-foreground: #f8fafc;
+  --primary: #fbbf24;
+  --primary-foreground: #000000;
+  --secondary: #334155;
+  --secondary-foreground: #f8fafc;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #334155;
+  --accent-foreground: #f8fafc;
+  --border: #334155;
+  --input: #334155;
+  --ring: #fbbf24;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: 'Century Gothic', 'Futura', 'Trebuchet MS', 'Arial', sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Ukrainian Banking Gradient Backgrounds */
+.gradient-bg {
+  background: linear-gradient(135deg, #ececec 0%, #f5f5f5 50%, #ececec 100%);
+  min-height: 100vh;
+}
+
+/* Professional Banking Gradients */
+.banking-gradient-primary {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 25%, #f1f5f9 50%, #e2e8f0 75%, #f8fafc 100%);
+}
+
+.banking-gradient-secondary {
+  background: linear-gradient(135deg, #ffffff 0%, #fefefe 25%, #f9fafb 50%, #f3f4f6 75%, #ffffff 100%);
+}
+
+.banking-gradient-accent {
+  background: linear-gradient(135deg, #ffffff 0%, #fef3c7 10%, #fef9e7 25%, #ffffff 50%, #f0f9ff 75%, #ffffff 100%);
+}
+
+/* Subtle Card Gradients */
+.card-gradient-yellow {
+  background: linear-gradient(135deg, #ffffff 0%, #fffbeb 30%, #fef3c7 60%, #ffffff 100%);
+}
+
+.card-gradient-blue {
+  background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 30%, #e0f2fe 60%, #ffffff 100%);
+}
+
+.card-gradient-green {
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 30%, #dcfce7 60%, #ffffff 100%);
+}
+
+.card-gradient-teal {
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 30%, #ccfbf1 60%, #ffffff 100%);
+}
+
+/* Custom Banking Components */
+.banking-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.banking-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-color: rgba(255, 215, 0, 0.4);
+}
+
+/* Force icon sizing with maximum specificity */
+.banking-section-icon {
+  width: 3rem !important; /* 48px - w-12 equivalent */
+  height: 3rem !important; /* 48px - h-12 equivalent */
+  border-radius: 0.75rem !important; /* rounded-xl equivalent */
+  margin-bottom: 1rem !important; /* mb-4 equivalent */
+  min-width: 3rem !important;
+  min-height: 3rem !important;
+  max-width: 3rem !important;
+  max-height: 3rem !important;
+}
+
+.banking-section-icon svg,
+.banking-section-icon .banking-icon-svg,
+svg.banking-icon-svg {
+  width: 1.5rem !important; /* 24px - w-6 equivalent */
+  height: 1.5rem !important; /* 24px - h-6 equivalent */
+  min-width: 1.5rem !important;
+  min-height: 1.5rem !important;
+  max-width: 1.5rem !important;
+  max-height: 1.5rem !important;
+}
+
+/* Dropdown Animations */
+@keyframes slideInFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: slideInFromTop 300ms ease-out;
+}
+
+.slide-in-from-top-2 {
+  animation: slideInFromTop 300ms ease-out;
+}
+
+/* Hero Section Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Fluid Line Animations */
+@keyframes flowLine {
+  0% {
+    stroke-dasharray: 0 1000;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 100 1000;
+    stroke-dashoffset: -200;
+  }
+  100% {
+    stroke-dasharray: 0 1000;
+    stroke-dashoffset: -1000;
+  }
+}
+
+@keyframes gentleFlow {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(2px) translateY(-1px);
+  }
+  50% {
+    transform: translateX(0) translateY(-2px);
+  }
+  75% {
+    transform: translateX(-2px) translateY(-1px);
+  }
+}
+
+.animate-flow-line {
+  animation: flowLine 8s ease-in-out infinite;
+}
+
+.animate-gentle-flow {
+  animation: gentleFlow 6s ease-in-out infinite;
+}
+
+/* Subtle background flow */
+@keyframes backgroundFlow {
+  0%, 100% {
+    opacity: 0.03;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 0.08;
+    transform: translateX(10px);
+  }
+}
+
+.animate-background-flow {
+  animation: backgroundFlow 12s ease-in-out infinite;
+}
+
+/* Simplified Mesh Gradient Animations */
+@keyframes meshShift {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateX(10px) translateY(5px);
+    opacity: 0.6;
+  }
+}
+
+.animate-mesh-shift {
+  animation: meshShift 15s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Simplified Blob Animations */
+@keyframes blobMorph {
+  0%, 100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    border-radius: 40% 60% 70% 30% / 50% 70% 30% 60%;
+    transform: translateX(5px) translateY(-3px);
+  }
+}
+
+.animate-blob-morph {
+  animation: blobMorph 20s ease-in-out infinite;
+  will-change: border-radius, transform;
+}
+
+/* Simplified Wave Animations */
+@keyframes waveFlow {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-10px);
+  }
+}
+
+.animate-wave-flow {
+  animation: waveFlow 12s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Geometric Vector Animations */
+@keyframes geometricFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-5px) rotate(180deg);
+    opacity: 0.6;
+  }
+}
+
+.animate-geometric-float {
+  animation: geometricFloat 6s ease-in-out infinite;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Language-specific font adjustments */
+[lang="ua"] {
+  font-size: 0.98em; /* Slightly reduce Ukrainian text size for better balance */
+  letter-spacing: 0.01em; /* Adjust letter spacing for Ukrainian characters */
+}
+
+[lang="en"] {
+  font-size: 1em; /* Standard size for English */
+  letter-spacing: normal;
+}

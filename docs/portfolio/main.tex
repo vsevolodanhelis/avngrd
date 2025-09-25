@@ -1,0 +1,242 @@
+% Avangard Bank Web Application – Engineering Portfolio
+% Compile with: pdflatex -interaction=nonstopmode -halt-on-error main.tex
+% If you want minted (syntax highlighting), see README.md for instructions.
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{listings}
+\usepackage{inconsolata}
+
+\geometry{margin=1in}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=blue,
+  citecolor=black,
+  pdfauthor={Avangard Bank Engineering},
+  pdftitle={Frontend Performance, Accessibility, Security & PWA Portfolio}
+}
+
+% Listings setup
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{comment}{RGB}{120,120,120}
+\definecolor{str}{RGB}{0,128,0}
+\definecolor{kw}{RGB}{0,0,160}
+\lstdefinestyle{code}{
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\small,
+  commentstyle=\color{comment},
+  keywordstyle=\color{kw}\bfseries,
+  stringstyle=\color{str},
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  framerule=0.2pt,
+  rulecolor=\color{black!20},
+  tabsize=2,
+  numberstyle=\tiny\color{comment},
+  numbers=left,
+  xleftmargin=1.5em,
+  framexleftmargin=1.2em
+}
+
+% Simple TypeScript/TSX support for listings
+\lstdefinelanguage{TypeScript}{
+  morekeywords={abstract,any,as,boolean,break,case,catch,class,const,continue,debugger,declare,default,do,else,enum,export,extends,false,finally,for,from,function,get,if,implements,import,in,instanceof,interface,let,module,namespace,new,null,number,of,package,private,protected,public,readonly,return,set,static,super,switch,symbol,this,throw,true,try,type,typeof,var,void,while,with,yield},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+\lstdefinelanguage{TSX}[]{TypeScript}{
+  moredelim=[s][\color{black}]<{>},
+}
+
+\title{Avangard Bank Web Application\\Frontend Performance, Accessibility, Security \& PWA Portfolio}
+\author{Internship Engineering Report}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Overview}
+This portfolio summarizes the core contributions to the Avangard Bank Next.js frontend. The focus areas include performance optimization (code-splitting, budgets, Web Vitals), SSR/CSR stability and hydration fixes, accessibility landmarks and language correctness, security headers and CSP, and PWA readiness with icon automation and service worker policy.
+
+\section{Highlights}
+\begin{itemize}[leftmargin=1.2em]
+  \item \textbf{Hydration stability:} Stabilized the site header and removed SSR/CSR divergence sources.
+  \item \textbf{Performance:} Dynamic imports with tailored SSR and fallbacks; size budgets and bundle analysis; performance dashboard.
+  \item \textbf{Accessibility:} Landmarks (main/complementary), skip link, valid IETF lang mapping (\texttt{ua} \(\to\) \texttt{uk}).
+  \item \textbf{Security:} Content Security Policy, security headers.
+  \item \textbf{PWA:} Icon generation pipeline via Sharp; disciplined SW policy (dev vs prod).
+\end{itemize}
+
+\section{Architecture Notes}
+\begin{itemize}[leftmargin=1.2em]
+  \item Next.js App Router with localized routes under \texttt{src/app/[locale]/}.
+  \item Client/server component composition supporting ISR where applicable.
+  \item Tailwind CSS v4 with PostCSS plugin \texttt{@tailwindcss/postcss}.
+\end{itemize}
+
+\section{SSR/CSR Stability and Header}
+\subsection*{Stabilized Header Component}
+\noindent File: \texttt{src/components/SiteHeader.tsx}
+
+% Image placeholder: Header/SSR stability
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\linewidth]{../pictures/header_siteheader.png}
+  \caption{Header/SSR stability — stabilized header avoiding SSR/CSR divergence (fixed classes, no scroll branches on first paint).}
+\end{figure}
+
+\lstinputlisting[style=code,language=TSX]{../../src/components/SiteHeader.tsx}
+
+\subsection*{Home Page Client Orchestration}
+\noindent File: \texttt{src/app/[locale]/HomeClient.tsx}
+
+% Image placeholder: Hydration/CSR hardening
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\linewidth]{../pictures/hydration_homeclient.png}
+  \caption{Hydration/CSR hardening — usage of SiteHeader, DynamicMetadata, safe translation fallback (tr), structured sections.}
+\end{figure}
+
+\lstinputlisting[style=code,language=TSX]{../../src/app/[locale]/HomeClient.tsx}
+
+\section{Performance: Dynamic Imports and Lazy Loading}
+\subsection*{Lazy Components and Preloading}
+\noindent File: \texttt{src/components/LazyComponents.tsx}
+
+% Image placeholder: Performance
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\linewidth]{../pictures/performance_lazycomponents.png}
+  \caption{Performance — dynamic imports with loading fallbacks, generic lazy wrapper (createLazyComponent), and LazySiteHeader.}
+\end{figure}
+
+\lstinputlisting[style=code,language=TSX]{../../src/components/LazyComponents.tsx}
+
+\section{Internationalization and Metadata}
+\subsection*{Language Context}
+\noindent File: \texttt{src/contexts/LanguageContext.tsx}
+
+% Image placeholder: Language/i18n
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\linewidth]{../pictures/language_context.png}
+  \caption{Language/i18n — URL-based locale detection, ua → uk mapping for document.lang, and routing updates.}
+\end{figure}
+
+\lstinputlisting[style=code,language=TSX]{../../src/contexts/LanguageContext.tsx}
+
+\subsection*{Dynamic Metadata}
+\noindent File: \texttt{src/components/DynamicMetadata.tsx}
+
+% Image placeholder: Metadata & a11y
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\linewidth]{../pictures/metadata_dynamicmetadata.png}
+  \caption{Metadata \& a11y — useEffect updates (title/meta), ua → uk normalization, safe fallbacks for title/description.}
+\end{figure}
+
+\lstinputlisting[style=code,language=TSX]{../../src/components/DynamicMetadata.tsx}
+
+\section{Accessibility}
+\subsection*{Root Layout and Landmarks}
+\noindent File: \texttt{src/app/layout.tsx}
+
+% Image placeholder: Landmarks/a11y (layout)
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\linewidth]{../pictures/landmarks_layout.png}
+  \caption{Landmarks/a11y — layout.tsx shows <main id="main-content" role="main">, <html lang="uk">, and skip link.}
+\end{figure}
+
+\lstinputlisting[style=code,language=TSX]{../../src/app/layout.tsx}
+
+\subsection*{Client Root Complementary Landmark}
+\noindent File: \texttt{src/components/ClientRoot.tsx}
+
+% Image placeholder: Landmarks/a11y (ClientRoot)
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\linewidth]{../pictures/landmarks_clientroot.png}
+  \caption{Landmarks/a11y — ClientRoot wraps auxiliary UI inside <aside role="complementary">.}
+\end{figure}
+
+\lstinputlisting[style=code,language=TSX]{../../src/components/ClientRoot.tsx}
+
+\section{Caching, SW Policy and PWA}
+\subsection*{Cache Utilities and SW Registration}
+\noindent File: \texttt{src/lib/cache.ts}
+
+% Image placeholder: Caching and SW
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\linewidth]{../pictures/caching_registersw.png}
+  \caption{Caching and SW — memory cache, persistent cache, and dev-only SW unregistration in registerServiceWorker.}
+\end{figure}
+
+\lstinputlisting[style=code,language=TypeScript]{../../src/lib/cache.ts}
+
+\subsection*{PWA Icon Generation}
+\noindent File: \texttt{scripts/generate-icons.mjs}
+
+% Image placeholder: PWA/Icon pipeline
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\linewidth]{../pictures/pwa_generate_icons.png}
+  \caption{PWA/Icon pipeline — sharp-based generator producing 192/512 and maskable icons from a source.}
+\end{figure}
+
+\lstinputlisting[style=code,language=TypeScript]{../../scripts/generate-icons.mjs}
+
+\section{Security and Build Tooling}
+\subsection*{Next.js Configuration and Security Headers}
+\noindent File: \texttt{next.config.ts}
+
+\lstinputlisting[style=code,language=TypeScript]{../../next.config.ts}
+
+\subsection*{Tailwind v4 and Global Styles}
+\noindent File: \texttt{postcss.config.mjs}
+
+\lstinputlisting[style=code,language=TypeScript]{../../postcss.config.mjs}
+
+\noindent File: \texttt{src/app/globals.css}
+
+\lstinputlisting[style=code]{../../src/app/globals.css}
+
+\section{Bundle Budgets and Scripts}
+\subsection*{Size-Limit Configuration}
+\noindent File: \texttt{.size-limit.json}
+
+\lstinputlisting[style=code]{../../.size-limit.json}
+
+\subsection*{Project Scripts}
+\noindent File: \texttt{package.json} (scripts excerpt)
+
+\lstinputlisting[style=code]{../../package.json}
+
+\section{Appendix: Additional Pages}
+\subsection*{About Page}
+\noindent File: \texttt{src/app/[locale]/about/page.tsx}
+
+\lstinputlisting[style=code,language=TSX]{../../src/app/[locale]/about/page.tsx}
+
+\subsection*{Products Page}
+\noindent File: \texttt{src/app/[locale]/products/page.tsx}
+
+\lstinputlisting[style=code,language=TSX]{../../src/app/[locale]/products/page.tsx}
+
+\end{document}
